@@ -1,6 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 function QuestionForm(props) {
+  useEffect(()=>{
+    fetch("http://localhost:4000/questions",{
+      method:"POST", 
+      headers:{
+        "Content-Type":"application/json"},
+        body:JSON.stringify({
+          "prompt": "string",
+  "answers": "array of strings",
+  "correctIndex": "integer"
+        })
+        
+    })
+  })
   const [formData, setFormData] = useState({
     prompt: "",
     answer1: "",

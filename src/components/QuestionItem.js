@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 function QuestionItem({ question }) {
   const { id, prompt, answers, correctIndex } = question;
@@ -8,7 +8,16 @@ function QuestionItem({ question }) {
       {answer}
     </option>
   ));
-
+  function handleDelete(){
+    fetch(`http://localhost:4000/questions/${id}`,{
+      method:"DELETE",
+      headers:{
+        "Content-Type":"application/json"
+      }
+      .then(res=>res.json())
+      .then(questions=>{question})
+    })
+  }
   return (
     <li>
       <h4>Question {id}</h4>
@@ -17,7 +26,7 @@ function QuestionItem({ question }) {
         Correct Answer:
         <select defaultValue={correctIndex}>{options}</select>
       </label>
-      <button>Delete Question</button>
+      <button onClick={handleDelete}>Delete Question</button>
     </li>
   );
 }
